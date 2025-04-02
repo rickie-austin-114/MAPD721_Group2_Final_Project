@@ -1,0 +1,101 @@
+name: Static Analysis
+on: [pull_request, workflow_dispatch]
+concurrency:
+  group: static-analysis-${{ github.event.number }}
+  cancel-in-progress: true
+jobs:
+  detekt:
+    name: Detekt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+      - name: Run Detekt
+        run: ./gradlew detekt
+
+  android_lint:
+    name: Android Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+      - name: Lint
+        run: ./gradlew lint
+
+  diffuse:
+    name: Diffuse AAR Analysis
+    runs-on: macOS-13
+    steps:
+      # Set up environment to assemble SDK
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+
+      # Assemble artifacts from main branch
+      - name: Checkout Main Branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Assemble Release AAR on Main Branch
+        run: ./gradlew clean assembleRelease -x :Demo:assembleRelease # we exclude Demo module in assemble
+      - name: Upload Main Branch Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-aar
+          path: |
+            CorePayments/build/outputs/aar/CorePayments-release.aar
+            CardPayments/build/outputs/aar/CardPayments-release.aar
+            PayPalWebPayments/build/outputs/aar/PayPalWebPayments-release.aar
+            PaymentButtons/build/outputs/aar/PaymentButtons-release.aar
+            FraudProtection/build/outputs/aar/FraudProtection-release.aar
+
+      # Assemble artifacts from current branch
+      - name: Checkout Current Branch
+        uses: actions/checkout@v4
+      - name: Assemble Release AAR on Current Branch
+        run: ./gradlew clean assembleRelease -x :Demo:assembleRelease # we exclude Demo module in assemble
+      - name: Upload Current Branch Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: current-aar
+          path: |
+            CorePayments/build/outputs/aar/CorePayments-release.aar
+            CardPayments/build/outputs/aar/CardPayments-release.aar
+            PayPalWebPayments/build/outputs/aar/PayPalWebPayments-release.aar
+            PaymentButtons/build/outputs/aar/PaymentButtons-release.aar
+            FraudProtection/build/outputs/aar/FraudProtection-release.aar
+
+      # Set up Diffuse
+      - name: Install Diffuse
+        run: brew install JakeWharton/repo/diffuse
+      - name: Download Workflow Artifacts 
+        uses: actions/download-artifact@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+
+      # Run Diffuse analysis
+      - name: Run Diffuse Analysis - CardPayments
+        run: diffuse diff --aar main-aar/CardPayments/build/outputs/aar/CardPayments-release.aar current-aar/CardPayments/build/outputs/aar/CardPayments-release.aar
+      - name: Run Diffuse Analysis - CorePayments
+        run: diffuse diff --aar main-aar/CorePayments/build/outputs/aar/CorePayments-release.aar current-aar/CorePayments/build/outputs/aar/CorePayments-release.aar
+      - name: Run Diffuse Analysis - PayPalWebPayments
+        run: diffuse diff --aar main-aar/PayPalWebPayments/build/outputs/aar/PayPalWebPayments-release.aar current-aar/PayPalWebPayments/build/outputs/aar/PayPalWebPayments-release.aar
+      - name: Run Diffuse Analysis - PaymentButtons
+        run: diffuse diff --aar main-aar/PaymentButtons/build/outputs/aar/PaymentButtons-release.aar current-aar/PaymentButtons/build/outputs/aar/PaymentButtons-release.aar
+      - name: Run Diffuse Analysis - FraudProtection
+        run: diffuse diff --aar main-aar/FraudProtection/build/outputs/aar/FraudProtection-release.aar current-aar/FraudProtection/build/outputs/aar/FraudProtection-release.aar

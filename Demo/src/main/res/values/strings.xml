@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">AndroidSDK</string>
+
+    <!-- Payment Methods -->
+    <string name="feature_approve_order">Approve Order</string>
+    <string name="feature_vault">Vault</string>
+    <string name="feature_paypal_web">PayPal Web</string>
+    <string name="feature_paypal_web_vault">PayPal Web Vault</string>
+    <string name="feature_paypal_buttons">PayPal Buttons</string>
+    <string name="feature_paypal_static_buttons">PayPal Buttons - XML</string>
+
+    <!-- Card Fields -->
+    <string name="card_field_card_number">CARD NUMBER</string>
+    <string name="card_field_expiration">EXP. DATE</string>
+    <string name="card_field_security_code">SEC. CODE</string>
+
+    <string name="sca_title">SCA</string>
+    <string-array name="sca_options">
+        <item>SCA_ALWAYS</item>
+        <item>SCA_WHEN_REQUIRED</item>
+    </string-array>
+
+    <string name="pay_pal_button_preview">Button Preview</string>
+    <string name="pay_pal_button_options">Button Options</string>
+    <string name="pay_pal_button_type">Button Type</string>
+    <string name="pay_pal_button_color">Button Color</string>
+    <string name="pay_pal_button_label">Button Label</string>
+    <string name="pay_pal_button_shape">Button Shape</string>
+    <string name="pay_pal_button_size">Button Size</string>
+
+    <string name="intent_title">INTENT</string>
+    <string-array name="intent_options">
+        <item>AUTHORIZE</item>
+        <item>CAPTURE</item>
+    </string-array>
+
+    <string name="store_in_vault">STORE IN VAULT</string>
+    <string-array name="store_in_vault_options">
+        <item>NO</item>
+        <item>ON_SUCCESS</item>
+    </string-array>
+
+    <string name="pay_pal_funding_source_title">FUNDING SOURCE</string>
+    <string-array name="pay_pal_funding_source_options">
+        <item>PAYPAL_CREDIT</item>
+        <item>PAY_LATER</item>
+        <item>PAYPAL</item>
+    </string-array>
+
+</resources>

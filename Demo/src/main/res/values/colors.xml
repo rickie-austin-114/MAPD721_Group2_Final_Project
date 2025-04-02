@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pay_pal_blue">#FF00457C</color>
+    <color name="pay_pal_light_blue">#FF0079C1</color>
+    <color name="charcoal">#FF36454f</color>
+</resources>

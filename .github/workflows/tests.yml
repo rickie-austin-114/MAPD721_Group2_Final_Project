@@ -1,0 +1,19 @@
+name: Tests
+on: [ pull_request, workflow_dispatch ]
+concurrency:
+  group: tests-${{ github.event.number }}
+  cancel-in-progress: true
+jobs:
+  unit_test_job:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+      - name: Run Unit Tests
+        run: ./gradlew --stacktrace testDebug
