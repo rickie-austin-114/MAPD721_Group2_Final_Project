@@ -31,7 +31,6 @@ import com.paypal.android.utils.UIConstants
 
 private val cardFeatures = listOf(
     //Feature.CARD_APPROVE_ORDER,
-   // Feature.CARD_VAULT
     Feature.PAYPAL_WEB,
 
     )
