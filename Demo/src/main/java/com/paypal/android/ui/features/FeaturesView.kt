@@ -30,12 +30,13 @@ import com.paypal.android.R
 import com.paypal.android.utils.UIConstants
 
 private val cardFeatures = listOf(
-    Feature.CARD_APPROVE_ORDER,
+    //Feature.CARD_APPROVE_ORDER,
    // Feature.CARD_VAULT
-)
+    Feature.PAYPAL_WEB,
+
+    )
 
 private val payPalWebFeatures = listOf(
-    Feature.PAYPAL_WEB,
     //Feature.PAYPAL_BUTTONS,
     Feature.PAYPAL_STATIC_BUTTONS,
     Feature.PAYPAL_WEB_VAULT
@@ -53,13 +54,13 @@ fun FeaturesView(
             .fillMaxSize()
     ) {
         stickyHeader {
-            FeatureGroupHeader(text = "Forum")
+            FeatureGroupHeader(text = "Paymnet")
         }
         item {
             FeatureOptions(cardFeatures, onSelectedFeatureChange = onSelectedFeatureChange)
         }
         stickyHeader {
-            FeatureGroupHeader("Payment")
+            FeatureGroupHeader("Chat and Forum")
         }
         item {
             FeatureOptions(payPalWebFeatures, onSelectedFeatureChange = onSelectedFeatureChange)

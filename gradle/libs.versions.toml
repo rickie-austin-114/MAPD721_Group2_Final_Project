@@ -39,6 +39,8 @@ squareLoggingInterceptor = "4.9.2"
 squareRetrofit2 = "2.9.0"
 striktCore = "0.30.1"
 striktMockk = "0.30.1"
+googleGmsGoogleServices = "4.4.2"
+firebaseFirestore = "25.1.3"
 
 [libraries]
 android-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
@@ -89,6 +91,7 @@ strikt-mockk = { group = "io.strikt", name = "strikt-mockk", version.ref = "stri
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name="detekt-formatting", version.ref = "detektVersion" }
 detekt-rulesLibraries = { group = "io.gitlab.arturbosch.detekt", name = "detekt-rules-libraries", version.ref = "detektVersion" }
 venmo = { module = "com.paypal.android:venmo", version.ref = "cardPayments" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -100,3 +103,4 @@ gradlePlayPublisher = { id = "com.github.triplet.play", version.ref = "gradlePla
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlinVersion" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinVersion" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
